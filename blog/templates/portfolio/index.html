@@ -17,6 +17,7 @@
 <nav>
 <a href="#about">About</a>
 <a href="#projects">Projects</a>
+<a href="#art">Art</a>
 <a href="#contact">Contact</a>
 </nav>
 </header>
@@ -54,6 +55,41 @@
 </section>
 
 
+<section id="art" class="section">
+<h2>My Art Projects</h2>
+
+<div class="carousel-container">
+    <div class="carousel-wrapper" id="carouselWrapper">
+        <div class="carousel-slide">
+            <img src="https://i.pinimg.com/736x/cd/9a/4d/cd9a4d79e801bf3b0bd4e7d3290c3168.jpg" alt="Art Project 1">
+            <p>Canvas "Hell yeah"</p>
+        </div>
+        <div class="carousel-slide">
+            <img src="https://i.pinimg.com/736x/06/0b/c4/060bc418563a32b886e2471b1ee1f84e.jpg" alt="Art Project 2">
+            <p>Colorful eye</p>
+        </div>
+        <div class="carousel-slide">
+            <img src="https://i.pinimg.com/1200x/58/f5/f4/58f5f40de87cd192f6fe4761ce88d0d0.jpg" alt="Art Project 3">
+            <p>Most popular on Pinterest</p>
+        </div>
+        <div class="carousel-slide">
+            <img src="https://i.pinimg.com/736x/5a/2b/48/5a2b480eda0004fabb1754bd0552e725.jpg" alt="Art Project 4">
+            <p>Thiin canvas CSM</p>
+        </div>
+    </div>
+</div>
+
+<div class="carousel-nav">
+    <button class="carousel-btn" id="prevBtn">◄</button>
+    <div class="carousel-dots" id="carouselDots"></div>
+    <button class="carousel-btn" id="nextBtn">►</button>
+</div>
+
+<div class="pinterest-link">
+    <a href="https://cz.pinterest.com/dejvidz31/" target="_blank">View More on Pinterest</a>
+</div>
+</section>
+
 
 <section id="contact" class="section">
 <h2>Contact</h2>
@@ -67,5 +103,56 @@
 <footer>
 <p>© 2025 David Zajíček. All rights reserved.</p>
 </footer>
+
+<script>
+    // Carousel functionality
+    const wrapper = document.getElementById('carouselWrapper');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dotsContainer = document.getElementById('carouselDots');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    
+    // Create dots
+    slides.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+    
+    const dots = document.querySelectorAll('.dot');
+    
+    function updateCarousel() {
+        wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+    }
+    
+    function goToSlide(index) {
+        currentIndex = index;
+        updateCarousel();
+    }
+    
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateCarousel();
+    }
+    
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateCarousel();
+    }
+    
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+    
+    // Auto-slide every 5 seconds
+    setInterval(nextSlide, 5000);
+</script>
 </body>
 </html>
